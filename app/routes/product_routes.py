@@ -25,6 +25,14 @@ async def getProducts(request: Request):
     # note passing of parameters to the page
     return templates.TemplateResponse("product/products.html", {"request": request, "products": products, "categories": categories })
 
+@router.get("/filter/{filter}", response_class=HTMLResponse)
+async def getProductsFilter(request: Request, filter: str):
+    print(filter)
+    # note passing of parameters to the page
+    return templates.TemplateResponse("product/partials/product_list.html", {"request": request, "products": getAllProducts(), "filter": filter   })
+
+
+
 @router.get("/update/{id}", response_class=HTMLResponse)
 async def getProfuctUpdateForm(request: Request, id: int):
 
