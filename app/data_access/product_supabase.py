@@ -16,11 +16,12 @@ supabase: Client = create_client(db_url, db_key)
 # get all products
 def dataGetProducts():
     response = (supabase.table("product")
-                .select("*")
+                .select("*, category(name)")
                 .order("title", desc=False)
                 .execute()
     )
-
+    print(response.data[0])
+    
     return response.data
 
 # get product by id
@@ -28,7 +29,7 @@ def dataGetProduct(id):
     # select * from product where id = id 
     response = (
         supabase.table("product")
-        .select("*")
+        .select("*,category(name)")
         .eq("id", id)
         .execute()
     )
